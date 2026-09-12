@@ -1,0 +1,18 @@
+   # OS files
+   .DS_Store
+   Thumbs.db
+   desktop.ini
+
+   # Editor files
+   .vscode/
+   .idea/
+   *.swp
+   *.swo
+
+   # Environment & Config (Akan kita gunakan nanti untuk menyembunyikan password DB)
+   .env
+   config/config.local.php
+
+   # Dependencies
+   vendor/
+   node_modules/
