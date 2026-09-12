@@ -43,7 +43,7 @@ class user
         $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":email", $this->email);
-        $stmt->bindParam(":password", $this->$password_hash);
+        $stmt->bindParam(":password", $password_hash);
 
         if ($stmt->execute()) {
             return true;
@@ -59,7 +59,7 @@ class user
     // */
 
     public function emailExists(){
-        $query = "SELECT id, password FROM " . $this->table . " WHERE email = :email LIMIT"; 
+        $query = "SELECT id, password FROM " . $this->table . " WHERE email = :email LIMIT 1"; 
         $stmt = $this->conn->prepare($query); 
 
         // sanitasi email sebelum dicek 

@@ -16,18 +16,39 @@ switch ($page) {
     case 'register':
         require_once __DIR__ . '/../controllers/AuthController.php';
         $controller = new AuthController();
-        $controller->register(); // Tampilkan form
+        $controller->register();
         break;
 
     case 'store-register':
         require_once __DIR__ . '/../controllers/AuthController.php';
         $controller = new AuthController();
-        $controller->store(); // Proses form
+        $controller->store();
         break;
 
-    // --- DEFAULT / HOME ---
+    case 'login':
+        require_once __DIR__ . '/../controllers/AuthController.php';
+        $controller = new AuthController();
+        $controller->login();
+        break;
+
+    case 'authenticate':
+        require_once __DIR__ . '/../controllers/AuthController.php';
+        $controller = new AuthController();
+        $controller->authenticate();
+        break;
+
+    case 'logout':
+        require_once __DIR__ . '/../controllers/AuthController.php';
+        $controller = new AuthController();
+        $controller->logout();
+        break;
+
+    case 'dashboard':
+        // sementara, sampai kamu buat DashboardController
+        echo "Halaman dashboard (belum dibuat)";
+        break;
+
     default:
-        // Untuk sementara, arahkan ke register
         require_once __DIR__ . '/../controllers/AuthController.php';
         $controller = new AuthController();
         $controller->register();
