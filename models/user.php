@@ -72,5 +72,36 @@ class user
 
         return $stmt->rowCount() > 0; 
     } 
+
+    /**
+     * Metode untuk autentikasi login
+     * Mengecek email & password, lalu mengisi properti user jika berhasil
+     * @return bool true jika login berhasil, false jika gagal
+     */
+    public function login()
+    {
+        $query = "SELECT id, name, email, password FROM " . $this->table . " WHERE email = :email LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+
+        $this->email = htmlspecialchars(strip_tags($this->email));
+        $stmt->bindParam(":email", $this->email);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            // Verifikasi password yang diinput dengan hash di database
+            if (password_verify($this->password, $row['password'])) {
+                // Isi properti object dengan data dari database
+                $this->id = $row['id'];
+                $this->name = $row['name'];
+                $this->email = $row['email'];
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
 }
 ?>
