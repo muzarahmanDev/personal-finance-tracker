@@ -1,0 +1,340 @@
+/* assets/css/style.css - tema Personal Finance Tracker */
+
+:root {
+    --pft-brand: #0E4D45;
+    --pft-brand-dark: #0A3A34;
+    --pft-brand-rgb: 14, 77, 69;
+    --pft-brand-soft: #E3EFEC;
+    --pft-bg: #F5F6F3;
+    --pft-ink: #16221F;
+    --pft-muted: #66736F;
+    --pft-line: #E3E7E3;
+    --pft-income: #1E8E5A;
+    --pft-income-soft: #E0F3E9;
+    --pft-expense: #C8423B;
+    --pft-expense-soft: #FBE4E2;
+
+    --bs-font-sans-serif: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --bs-body-font-family: var(--bs-font-sans-serif);
+    --bs-body-bg: var(--pft-bg);
+    --bs-body-color: var(--pft-ink);
+    --bs-border-radius: 10px;
+    --bs-link-color-rgb: var(--pft-brand-rgb);
+    --bs-link-hover-color-rgb: 10, 58, 52;
+}
+
+body { -webkit-font-smoothing: antialiased; }
+.num { font-variant-numeric: tabular-nums; }
+.text-income { color: var(--pft-income); }
+.text-expense { color: var(--pft-expense); }
+
+/* Lebar konten dibatasi supaya nyaman dibaca di layar besar */
+@media (min-width: 1200px) {
+    .container { max-width: 1040px; }
+}
+
+a:focus-visible,
+.btn:focus-visible,
+.btn-icon:focus-visible {
+    outline: 2px solid var(--pft-brand);
+    outline-offset: 2px;
+}
+
+/* ---------- Navbar ---------- */
+.navbar-pft { background: var(--pft-brand); }
+.navbar-pft .navbar-brand { font-weight: 800; letter-spacing: .01em; }
+.navbar-pft .nav-link {
+    color: rgba(255, 255, 255, .72);
+    border-radius: 8px;
+    padding: .55rem .85rem;
+    font-weight: 500;
+}
+.navbar-pft .nav-link:hover { color: #fff; }
+.navbar-pft .nav-link.active { color: #fff; background: rgba(255, 255, 255, .14); }
+.navbar-pft .nav-user { color: rgba(255, 255, 255, .85); font-size: .9rem; }
+
+/* ---------- Footer ---------- */
+.site-footer {
+    background: #fff;
+    border-top: 1px solid var(--pft-line);
+    color: var(--pft-muted);
+    font-size: .875rem;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+/* ---------- Header halaman ---------- */
+.page-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    margin-bottom: 1.25rem;
+}
+.page-title {
+    font-size: clamp(1.3rem, 4vw, 1.75rem);
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+.page-title .bi { color: var(--pft-brand); }
+@media (max-width: 575.98px) {
+    .page-head .btn { width: 100%; }
+}
+
+/* ---------- Komponen dasar ---------- */
+.card {
+    --bs-card-border-radius: 14px;
+    --bs-card-border-color: var(--pft-line);
+    --bs-card-inner-border-radius: 13px;
+    overflow: hidden;
+}
+.card-header {
+    background: #fff;
+    border-bottom: 1px solid var(--pft-line);
+    padding: .9rem 1.1rem;
+}
+.alert { border: 0; border-radius: 12px; }
+
+.btn:not(.btn-sm) {
+    --bs-btn-padding-y: .6rem;
+    --bs-btn-padding-x: 1.1rem;
+}
+.btn { font-weight: 600; }
+
+.btn-primary {
+    --bs-btn-bg: var(--pft-brand);
+    --bs-btn-border-color: var(--pft-brand);
+    --bs-btn-hover-bg: var(--pft-brand-dark);
+    --bs-btn-hover-border-color: var(--pft-brand-dark);
+    --bs-btn-active-bg: var(--pft-brand-dark);
+    --bs-btn-active-border-color: var(--pft-brand-dark);
+    --bs-btn-disabled-bg: var(--pft-brand);
+    --bs-btn-disabled-border-color: var(--pft-brand);
+    --bs-btn-focus-shadow-rgb: var(--pft-brand-rgb);
+}
+.btn-outline-primary {
+    --bs-btn-color: var(--pft-brand);
+    --bs-btn-border-color: var(--pft-brand);
+    --bs-btn-hover-bg: var(--pft-brand);
+    --bs-btn-hover-border-color: var(--pft-brand);
+    --bs-btn-active-bg: var(--pft-brand-dark);
+    --bs-btn-active-border-color: var(--pft-brand-dark);
+    --bs-btn-focus-shadow-rgb: var(--pft-brand-rgb);
+}
+
+/* Tombol ikon (edit / hapus) - area sentuh 40x40 */
+.btn-icon {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--pft-line);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--pft-muted);
+    text-decoration: none;
+    transition: background-color .15s, color .15s, border-color .15s;
+}
+.btn-icon:hover {
+    color: var(--pft-brand);
+    border-color: var(--pft-brand);
+    background: var(--pft-brand-soft);
+}
+.btn-icon-danger:hover {
+    color: var(--pft-expense);
+    border-color: var(--pft-expense);
+    background: var(--pft-expense-soft);
+}
+.row-actions { display: inline-flex; gap: .5rem; }
+
+/* Form */
+.form-label { font-weight: 600; font-size: .9rem; margin-bottom: .35rem; }
+.form-control,
+.form-select,
+.input-group-text {
+    padding: .65rem .85rem;
+    border-color: #D5DBD7;
+}
+.input-group-text { background: var(--pft-brand-soft); color: var(--pft-brand); font-weight: 600; }
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--pft-brand);
+    box-shadow: 0 0 0 .2rem rgba(var(--pft-brand-rgb), .15);
+}
+.form-narrow { max-width: 640px; margin-inline: auto; }
+
+/* Badge tipe kategori */
+.badge-type {
+    font-weight: 600;
+    padding: .4em .8em;
+    border-radius: 999px;
+}
+.badge-income { background: var(--pft-income-soft); color: #17704A; }
+.badge-expense { background: var(--pft-expense-soft); color: #A3322C; }
+
+/* ---------- Dashboard ---------- */
+.balance-hero {
+    background: var(--pft-brand);
+    color: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+}
+.balance-main { padding: 1.5rem 1.5rem 1.25rem; }
+.balance-label { margin: 0; font-size: .9rem; opacity: .8; }
+.balance-amount {
+    margin: .25rem 0 0;
+    font-size: clamp(2rem, 8vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -.02em;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+}
+.balance-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: rgba(0, 0, 0, .2);
+}
+.balance-split > div { padding: 1rem 1.5rem; min-width: 0; }
+.balance-split > div + div { border-left: 1px solid rgba(255, 255, 255, .14); }
+.split-label { margin: 0; font-size: .82rem; opacity: .8; }
+.split-amount {
+    margin: .15rem 0 0;
+    font-size: clamp(.95rem, 4.2vw, 1.3rem);
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+.split-amount.in { color: #8FE3B8; }
+.split-amount.out { color: #FFB4AE; }
+@media (min-width: 768px) {
+    .balance-main { padding: 2rem 2rem 1.5rem; }
+    .balance-split > div { padding: 1.1rem 2rem; }
+}
+
+.quick-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .75rem;
+    margin: 1rem 0 1.5rem;
+}
+@media (min-width: 576px) {
+    .quick-actions { display: flex; }
+}
+
+/* Daftar transaksi terakhir */
+.trx-item {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    padding: .9rem 1.1rem;
+    border-bottom: 1px solid var(--pft-line);
+}
+.trx-item:last-child { border-bottom: 0; }
+.trx-icon {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 1.05rem;
+}
+.trx-icon.income { background: var(--pft-income-soft); color: var(--pft-income); }
+.trx-icon.expense { background: var(--pft-expense-soft); color: var(--pft-expense); }
+.trx-main { flex: 1 1 auto; min-width: 0; }
+.trx-cat { font-weight: 600; line-height: 1.3; }
+.trx-meta { font-size: .82rem; color: var(--pft-muted); }
+.trx-amt { flex: 0 0 auto; font-weight: 700; white-space: nowrap; }
+
+.empty-state { text-align: center; padding: 2.5rem 1rem; color: var(--pft-muted); }
+.empty-state .bi { font-size: 2rem; color: var(--pft-brand); display: block; margin-bottom: .5rem; }
+.empty-state p { margin-bottom: 1rem; }
+
+/* ---------- Tabel (desktop) ---------- */
+.table-pft { margin-bottom: 0; }
+.table-pft thead th {
+    background: #FAFBF9;
+    color: var(--pft-muted);
+    font-size: .85rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--pft-line);
+}
+.table-pft > :not(caption) > * > * { padding: .9rem 1rem; }
+
+/* ---------- Tabel jadi kartu di HP ---------- */
+@media (max-width: 767.98px) {
+    .table-pft thead { display: none; }
+    .table-pft,
+    .table-pft tbody { display: block; width: 100%; }
+    .table-pft tbody tr {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        column-gap: .75rem;
+        row-gap: .2rem;
+        align-items: center;
+        padding: .9rem 1rem;
+        border-bottom: 1px solid var(--pft-line);
+    }
+    .table-pft tbody tr:last-child { border-bottom: 0; }
+    .table-pft td {
+        padding: 0;
+        border: 0;
+        background: none;
+        box-shadow: none;
+    }
+
+    /* Tabel transaksi */
+    .c-cat { grid-column: 1; grid-row: 1; font-weight: 600; }
+    .c-amt { grid-column: 2; grid-row: 1; text-align: right; white-space: nowrap; }
+    .c-date { grid-column: 1 / -1; grid-row: 2; font-size: .85rem; color: var(--pft-muted); }
+    .c-desc { grid-column: 1 / -1; grid-row: 3; font-size: .9rem; }
+    .c-desc.is-empty { display: none; }
+
+    /* Tabel kategori */
+    .k-name { grid-column: 1; grid-row: 1; font-weight: 600; }
+    .k-type { grid-column: 2; grid-row: 1; text-align: right; }
+
+    .c-act,
+    .k-act { grid-column: 1 / -1; text-align: right; margin-top: .6rem; }
+    .c-act { grid-row: 4; }
+    .k-act { grid-row: 2; }
+}
+
+/* ---------- Halaman login & register ---------- */
+.auth-wrap {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 1rem;
+}
+.auth-brand { text-align: center; margin-bottom: 1.25rem; }
+.auth-logo {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto .75rem;
+    display: grid;
+    place-items: center;
+    background: var(--pft-brand);
+    color: #fff;
+    border-radius: 14px;
+    font-size: 1.5rem;
+}
+.auth-brand h1 { font-size: 1.1rem; font-weight: 800; margin: 0; }
+.auth-brand p { margin: .15rem 0 0; color: var(--pft-muted); font-size: .9rem; }
+.auth-card { width: 100%; max-width: 420px; }
+.auth-card .card-body { padding: 1.5rem; }
+@media (min-width: 576px) {
+    .auth-card .card-body { padding: 2rem; }
+}
+.auth-title { font-size: 1.4rem; font-weight: 700; text-align: center; margin-bottom: 1.25rem; }
+
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+}

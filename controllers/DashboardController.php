@@ -1,35 +1,38 @@
-<?php 
+<?php
 // controllers/DashboardController.php
 
-// Panggil middleware satpam kita
-
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../models/Transaction.php';
 require_once __DIR__ . '/../middleware/Auth.php';
 
 class DashboardController {
+    private $db;
+    private $transaction;
 
-        public function __construct() {
-        // PANGGIL SATPAM DI SINI!
-        // Setiap kali controller ini dibuat, dia akan mengecek apakah user sudah login.
-        requireLogin(); 
+    public function __construct() {
+        // SATPAM: wajib login
+        requireLogin();
+
+        $database = new Database();
+        $this->db = $database->getConnection();
+
+        $this->transaction = new Transaction($this->db);
     }
 
-     /**
-     * Menampilkan halaman utama dashboard
-     */
+    public function index() {
+        $userId = $_SESSION['user_id'];
 
-         public function index() {
-        // Siapkan data untuk View
+        // 1. Ambil ringkasan keuangan (income, expense, balance)
+        $summary = $this->transaction->getSummary($userId);
+
+        // 2. Ambil 5 transaksi terbaru
+        $recentTransactions = $this->transaction->getRecent($userId, 5);
+
+        // 3. Kirim data ke View
         $pageTitle = "Dashboard";
-        $userName = $_SESSION['user_name'] ?? "User";
-        
-        // Nanti di sini kita akan ambil data transaksi dari database
-        // Untuk sekarang, kita tampilkan halaman kosong dulu
-        
+        $userName  = $_SESSION['user_name'] ?? "User";
+
         require_once __DIR__ . '/../views/dashboard/index.php';
     }
-
-
 }
-
-
 ?>

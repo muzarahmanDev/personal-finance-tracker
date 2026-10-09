@@ -100,5 +100,58 @@ class Transaction {
         $stmt->bindParam(":user_id", $this->user_id);
         return $stmt->execute();
     }
+
+        /**
+     * SUMMARY: Hitung total pemasukan, pengeluaran, dan saldo dalam SATU query.
+     * Menggunakan teknik Conditional Aggregation: SUM(CASE WHEN ...).
+     */
+    public function getSummary($userId) {
+        $query = "SELECT 
+                    COALESCE(SUM(CASE WHEN type = 'income'  THEN amount ELSE 0 END), 0) AS total_income,
+                    COALESCE(SUM(CASE WHEN type = 'expense' THEN amount ELSE 0 END), 0) AS total_expense
+                  FROM " . $this->table . "
+                  WHERE user_id = :user_id";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":user_id", $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        $income  = (float)$row['total_income'];
+        $expense = (float)$row['total_expense'];
+        
+        // Saldo dihitung di sisi PHP (business logic, bukan urusan database)
+        return [
+            'income'  => $income,
+            'expense' => $expense,
+            'balance' => $income - $expense,
+        ];
+    }
+
+    /**
+     * RECENT: Ambil beberapa transaksi terbaru untuk widget dashboard.
+     */
+    public function getRecent($userId, $limit = 5) {
+        // LIMIT tidak aman pakai placeholder string, jadi kita cast ke integer.
+        // Aman karena $limit berasal dari kode kita sendiri, BUKAN input user.
+        $limit = (int)$limit;
+        
+        $query = "SELECT t.id, t.type, t.amount, t.description, t.date,
+                         c.name AS category_name
+                  FROM " . $this->table . " t
+                  LEFT JOIN categories c ON t.category_id = c.id
+                  WHERE t.user_id = :user_id
+                  ORDER BY t.date DESC, t.id DESC
+                  LIMIT " . $limit;
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":user_id", $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 }
 ?>
