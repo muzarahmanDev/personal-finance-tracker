@@ -59,7 +59,85 @@ switch ($page) {
         require_once __DIR__ . '/../controllers/DashboardController.php';
         $controller = new DashboardController();
         $controller->index();
+        break; 
+
+
+        // ... (case dashboard, logout, dll tetap ada) ...
+
+    // --- CATEGORY ROUTES ---
+    case 'categories':
+        require_once __DIR__ . '/../controllers/CategoryController.php';
+        $controller = new CategoryController();
+        $controller->index();
         break;
+
+    case 'create-category':
+        require_once __DIR__ . '/../controllers/CategoryController.php';
+        $controller = new CategoryController();
+        $controller->create();
+        break;
+
+    case 'store-category':
+        require_once __DIR__ . '/../controllers/CategoryController.php';
+        $controller = new CategoryController();
+        $controller->store();
+        break;
+
+    case 'edit-category':
+        require_once __DIR__ . '/../controllers/CategoryController.php';
+        $controller = new CategoryController();
+        $controller->edit();
+        break;
+
+    case 'update-category':
+        require_once __DIR__ . '/../controllers/CategoryController.php';
+        $controller = new CategoryController();
+        $controller->update();
+        break;
+
+    case 'delete-category':
+        require_once __DIR__ . '/../controllers/CategoryController.php';
+        $controller = new CategoryController();
+        $controller->destroy();
+        break;
+    
+        // --- TRANSACTION ROUTES ---
+    case 'transactions':
+        require_once __DIR__ . '/../controllers/TransactionController.php';
+        $controller = new TransactionController();
+        $controller->index();
+        break;
+
+    case 'create-transaction':
+        require_once __DIR__ . '/../controllers/TransactionController.php';
+        $controller = new TransactionController();
+        $controller->create();
+        break;
+
+    case 'store-transaction':
+        require_once __DIR__ . '/../controllers/TransactionController.php';
+        $controller = new TransactionController();
+        $controller->store();
+        break;
+
+    case 'edit-transaction':
+        require_once __DIR__ . '/../controllers/TransactionController.php';
+        $controller = new TransactionController();
+        $controller->edit();
+        break;
+
+    case 'update-transaction':
+        require_once __DIR__ . '/../controllers/TransactionController.php';
+        $controller = new TransactionController();
+        $controller->update();
+        break;
+
+    case 'delete-transaction':
+        require_once __DIR__ . '/../controllers/TransactionController.php';
+        $controller = new TransactionController();
+        $controller->destroy();
+        break;
+
 
     default:
         require_once __DIR__ . '/../controllers/AuthController.php';
